@@ -5,23 +5,25 @@ Python script that change all files in project from default language to the targ
 ### How It Works
 
 * Config dictionary file (what should be replaced with what). Here is an example for Russian language
-```
+
+```python
 MAPPING_DICT = {
-    '<a href="index.html">Main</a>' : '<a href="index.html">Главная</a>'
+    '<p> Some sample text to be replaces. </p>' : '<p> Текст для примера</p>'
 }
 * Put all configs into file in following format:
-```
-# coding: utf-8
+```python
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+"""SETTINGS"""
 
 ORIGINAL_LANGUAGE = 'en'
-TARGET_LANGUAGE = 'ru'
+TARGET_LANGUAGE = 'de'
 
-# mapping from English to Russian
+"""DICTIONARY -> english to russian"""
 
 MAPPING_DICT = {
-    'Main</a>' : 'Главная</a>',
-    'Labs</a>' : 'Лабы</a>',
-    'Publications</a>' : 'Публикации</a>'
+    '<p> Some sample text to be replaces. </p>' : '<p> Текст для примера</p>'
 }
 ```
 * Script will apply all existing in folder translations "dictionaries"
