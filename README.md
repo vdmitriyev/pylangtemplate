@@ -21,7 +21,7 @@ MAPPING_DICT = {
 """SETTINGS"""
 
 ORIGINAL_LANGUAGE = 'en'
-TARGET_LANGUAGE = 'de'
+TARGET_LANGUAGE = 'ru'
 
 """DICTIONARY -> english to russian"""
 
@@ -31,9 +31,8 @@ MAPPING_DICT = {
 ```
 
 * Script will apply all existing in folder translations "dictionaries"
-* After the script will produce new version, copy and paste new files to the desired web directory
-
-* Run 'run.bat' or use command line
+* After the script will produce new version and save them accordingly
+* Check 'run.bat' for details how to run script via command line
 
 ### Dependencies
 
