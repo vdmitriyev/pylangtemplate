@@ -10,7 +10,10 @@ Python script that change all files in project from default language to the targ
 MAPPING_DICT = {
     '<p> Some sample text to be replaces. </p>' : '<p> Текст для примера</p>'
 }
+```
+
 * Put all configs into file in following format:
+
 ```python
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
@@ -26,6 +29,7 @@ MAPPING_DICT = {
     '<p> Some sample text to be replaces. </p>' : '<p> Текст для примера</p>'
 }
 ```
+
 * Script will apply all existing in folder translations "dictionaries"
 * After the script will produce new version, copy and paste new files to the desired web directory
 
