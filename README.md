@@ -40,7 +40,10 @@ MAPPING_DICT = {
 * docopt
 
 ```
+# from file
 pip install -r requirements.txt
+# as packages directly
+pip install docopt
 ```
 
 ### Authors
