@@ -1,15 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 
-__author__      = 'Viktor Dmitriyev'
-__copyright__   = 'Copyright 2015, Viktor Dmitriyev'
-__credits__     = ['Viktor Dmitriyev']
-__license__     = 'MIT'
-__version__     = '1.2.0'
-__maintainer__  = '-'
-__email__       = ''
-__status__      = 'dev'
-__date__        = '20.06.2015'
+__author__ = 'Viktor Dmitriyev'
+__copyright__ = 'Copyright 2015, Viktor Dmitriyev'
+__credits__ = ['Viktor Dmitriyev']
+__license__ = 'MIT'
+__version__ = '1.2.0'
+__maintainer__ = '-'
+__email__ = ''
+__status__ = 'dev'
+__date__ = '20.06.2015'
 __description__ = 'Python script that change all files in project with from default language to the target one'
 
 import os
@@ -26,6 +27,7 @@ from datetime import datetime
 
 ACCEPTED_EXTENSIONS = ['.html']
 DEBUG = False
+
 
 class FolderIterator():
 
@@ -49,6 +51,7 @@ class FolderIterator():
 
         return total_papers
 
+
 class PrepeareForNewProject():
 
     def __init__(self, website_path):
@@ -56,7 +59,6 @@ class PrepeareForNewProject():
             Initialization of class
         """
         self.website_path = website_path
-
 
     def replace_in_file(self, proj_file, search, replace, rewrite=True):
         """
@@ -89,19 +91,23 @@ class PrepeareForNewProject():
         """
 
         def make_archive_copy(source_dir, target_filename=None):
-            """
-                Making copy of the directory before clearing it
+            """Making copy of the directory before clearing it
+
+                Args:
             """
             if target_filename is None:
-                suffix = '{0}-{1}'.format(datetime.fromtimestamp(time.time()).strftime('%Y%m%d-%H%M'), str(uuid.uuid1())[:2])
-                archive_file_path = '{0}-archive-{1}.tar.gz'.format(directory, suffix)
+                suffix = '{0}-{1}'.format(
+                    datetime.fromtimestamp(time.time()).strftime('%Y%m%d-%H%M'),
+                    str(uuid.uuid1())[:2])
+                archive_file_path = '{0}-archive-{1}.tar.gz'.format(directory,
+                                                                    suffix)
                 target_filename = archive_file_path
 
-            print ('[i] creating archive of "{0}" in "{1}"'.format(source_dir, target_filename))
+            print('[i] creating archive of "{0}" in "{1}"'.format(
+                source_dir, target_filename))
 
             with tarfile.open(target_filename, "w:gz") as tar:
                 tar.add(source_dir, arcname=os.path.basename(source_dir))
-
 
         if os.path.exists(directory):
 
@@ -117,12 +123,19 @@ class PrepeareForNewProject():
 
     def process(self, source_lang, target_lang, mapping_dict):
         """
-            (NoneType) -> NoneType
-
             Processing the files of the project
+
+            Args:
+                source_lang (str)   : source language to be used as default.
+                target_lang (str)   : target language of translation.
+                mapping_dict (dict) : dictionary of translation.
+
+            Returns:
+                None
         """
 
-        print ('[i] configured website location is {0}'.format(self.website_path))
+        print('[i] configured website location is {0}'.format(
+            self.website_path))
 
         target_dir = self.website_path + target_lang
         source_dir = self.website_path + source_lang
@@ -134,9 +147,9 @@ class PrepeareForNewProject():
         self.proj_files = fi.iterate_through_catalog(target_dir)
 
         for directory in self.proj_files:
-            print '\t' + directory
+            print('\t{0}'.format(directory))
             for proj_file in self.proj_files[directory]:
-                print '\t' + proj_file
+                print('\t{0}'.format(proj_file))
                 self.template_to_new(directory + '/' + proj_file, mapping_dict)
 
         #os.rename(target_lang)
@@ -147,9 +160,13 @@ class Logger(object):
     def __init__(self):
         """ Initializing log file with random name"""
         self.terminal = sys.stdout
-        suffix = '{0}-{1}'.format(datetime.fromtimestamp(time.time()).strftime('%Y%m%d-%H%M'), str(uuid.uuid1())[:2])
+        suffix = '{0}-{1}'.format(
+            datetime.fromtimestamp(time.time()).strftime('%Y%m%d-%H%M'),
+            str(uuid.uuid1())[:2])
         self.log = open('logfile-{0}.log'.format(suffix), "a")
-        if DEBUG: print('[i] saving debugging info into file "{0}"'.format('logfile-{0}.log'.format(suffix)))
+        if DEBUG:
+            print('[i] saving debugging info into file "{0}"'.format(
+                'logfile-{0}.log'.format(suffix)))
 
     def write(self, message):
         """ Overriding writing method to write to file and stdout at once"""
@@ -165,11 +182,16 @@ class Logger(object):
 
         pass
 
-def main(website_path=None, dictionaries_path=None):
-    """
-        (NoneType) -> NoneType
 
-        Main method that creates objects and start processing.
+def main(website_path=None, dictionaries_path=None):
+    """Main method that creates objects and start processing.
+
+    Args:
+        website_path (str)     : path to website that will be used as default one.
+        dictionaries_path (str): path to dictionaries with translate.
+
+    Returns:
+        None
     """
 
     if website_path is None:
@@ -185,12 +207,14 @@ def main(website_path=None, dictionaries_path=None):
     import dictionaries as _languges
 
     for languge in _languges.__all__:
-        current = importlib.import_module('dictionaries.{modulename}'.format(modulename=languge))
+        current = importlib.import_module('dictionaries.{modulename}'.format(
+            modulename=languge))
 
-        print ('[i] processing language {0}'.format(current.TARGET_LANGUAGE))
+        print('[i] processing language {0}'.format(current.TARGET_LANGUAGE))
 
         pcv = PrepeareForNewProject(website_path)
-        pcv.process(current.ORIGINAL_LANGUAGE, current.TARGET_LANGUAGE, current.MAPPING_DICT)
+        pcv.process(current.ORIGINAL_LANGUAGE, current.TARGET_LANGUAGE,
+                    current.MAPPING_DICT)
 
 
 if __name__ == '__main__':

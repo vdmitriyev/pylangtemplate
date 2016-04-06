@@ -1,4 +1,6 @@
+*.tox
 *.pyc
 *.gz
 *.log
 samplewebsite/ru/*
+*.egg-info
