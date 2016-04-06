@@ -19,6 +19,7 @@ import uuid
 import time
 import string
 import shutil
+import codecs
 import tarfile
 import fileinput
 import importlib
@@ -67,9 +68,17 @@ class PrepeareForNewProject():
             Replace "search" string with "replace" string in "proj_file".
         """
 
-        for line in fileinput.input(proj_file, inplace=True):
-            line = line.replace(search, replace)
-            sys.stdout.write(line)
+        with codecs.open(proj_file, 'r', encoding='utf-8') as f:
+            file_content = f.read()
+
+        file_content = file_content.replace(search, replace)
+
+        with codecs.open(proj_file, 'wb', encoding='utf-8') as f:
+            f.write(file_content)
+
+        # for line in fileinput.input(proj_file, inplace=True):
+        #     line = line
+        #     sys.stdout.write(line)
 
     def template_to_new(self, proj_file, lang_dict):
         """
@@ -218,6 +227,12 @@ def main(website_path=None, dictionaries_path=None):
 
 
 if __name__ == '__main__':
+    # setting system default encoding to the UTF-8
+    import sys
+
+    if sys.version_info < (3, 0, 0):
+        reload(sys)
+        sys.setdefaultencoding('UTF8')
 
     __help__ = """
     {description}

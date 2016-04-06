@@ -4,3 +4,4 @@
 *.log
 samplewebsite/ru/*
 *.egg-info
+__pycache__

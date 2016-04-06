@@ -23,6 +23,7 @@ setup(
     license=license,
     author=author,
     author_email='',
+    install_requires = ['docopt'],
     classifiers=[
         'Intended Audience :: Developers',
         'Environment :: Console',
